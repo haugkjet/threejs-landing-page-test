@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { ConeBufferGeometry } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 const scene = new THREE.Scene();
@@ -25,6 +26,18 @@ const material = new THREE.MeshBasicMaterial({
 
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
+cube.position.x = 1;
+
+function moveCamera() {
+  const t = document.body.getBoundingClientRect().top;
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
+
+  camera.position.z = t * -0.01;
+  camera.position.x = t * -0.0001;
+  camera.position.y = t * -0.0001;
+}
+document.body.onscroll = moveCamera;
 
 window.addEventListener("resize", onWindowResize, false);
 function onWindowResize() {
@@ -37,8 +50,8 @@ function onWindowResize() {
 function animate() {
   requestAnimationFrame(animate);
 
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+  //cube.rotation.x += 0.01;
+  //cube.rotation.y += 0.01;
 
   render();
 }
